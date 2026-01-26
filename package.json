@@ -2,6 +2,7 @@
   "name": "deadline-reminder-bot",
   "version": "1.0.0",
   "description": "Telegram bot for deadline reminders with OpenAI integration",
+  "license": "MIT",
   "main": "dist/main.js",
   "scripts": {
     "build": "nest build",
