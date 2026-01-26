@@ -13,8 +13,8 @@ export class UsersController {
     status: 200,
     description: "Userlar ro'yxati",
   })
-  getAllUsers(): User[] {
-    return this.databaseService.getAllUsers();
+  async getAllUsers(): Promise<User[]> {
+    return await this.databaseService.getAllUsers();
   }
 
   @Get(":chatId")
@@ -24,8 +24,8 @@ export class UsersController {
     status: 200,
     description: "User ma'lumotlari",
   })
-  getUser(@Param("chatId", ParseIntPipe) chatId: number): User | undefined {
-    return this.databaseService.getUser(chatId);
+  async getUser(@Param("chatId", ParseIntPipe) chatId: number): Promise<User | undefined> {
+    return await this.databaseService.getUser(chatId);
   }
 
   @Delete(":chatId")
@@ -35,10 +35,10 @@ export class UsersController {
     status: 200,
     description: "User o'chirildi",
   })
-  deleteUser(@Param("chatId", ParseIntPipe) chatId: number): {
+  async deleteUser(@Param("chatId", ParseIntPipe) chatId: number): Promise<{
     message: string;
-  } {
-    this.databaseService.deleteUser(chatId);
+  }> {
+    await this.databaseService.deleteUser(chatId);
     return { message: `User ${chatId} o'chirildi` };
   }
 }
