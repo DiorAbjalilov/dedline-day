@@ -7,10 +7,15 @@ Telegram bot for deadline reminders with OpenAI integration, built with NestJS.
 - **/start** - Botni ishga tushirish va ma'lumotlarni kiritish
 - **Ism** - Foydalanuvchi ismini saqlash
 - **Sana** - Muhim kun sanasini saqlash (YYYY-MM-DD)
-- **Sabab** - Bu kun nima uchun muhimligini saqlash
+- **Sabab** - Bu kun nima uchun muhimligini to'liq yozish (AI uchun context)
 - **Kunlik eslatma** - Har kuni ertalab 8:00 da
-- **AI xabarlar** - OpenAI orqali motivatsion xabarlar
+- **AI xabarlar** - OpenAI orqali kontekstga mos motivatsion xabarlar
+  - **30+ kun**: Umumiy motivatsiya va rejalashtirish
+  - **10-30 kun**: Tayorgarlik va fokuslanish
+  - **3-10 kun**: Tinchlantirish va dalda berish ("Hayajonlanmang!")
+  - **1-3 kun**: Kuchli ishonch va qo'llab-quvvatlash
 - **Oxirgi 10 kun** - Emoji raqamlar bilan maxsus eslatmalar
+- **/reset** - Ma'lumotlarni o'chirish va qayta boshlash
 
 ## 🚀 O'rnatish
 
@@ -86,7 +91,44 @@ src/
 
 - **NestJS** - Backend framework
 - **Telegraf** - Telegram Bot API
-- **OpenAI** - GPT-3.5 turbo
+- **OpenAI** - GPT-3.5 turbo (kontekstga mos motivatsion xabarlar)
 - **SQLite** - Ma'lumotlar bazasi
-- **@nestjs/schedule** - Cron jobs
-# dedline-day
+- **@nestjs/schedule** - Cron jobs (har kuni 8:00 da)
+
+## 🤖 AI Xabar Tizimi
+
+Bot qolgan kunlarga qarab turli xil yondashuvda xabarlar yuboradi:
+
+| Qolgan kunlar | Yondashuv | Misol |
+|---------------|-----------|-------|
+| 30+ kun | Umumiy motivatsiya, rejalashtirish | "Vaqtingiz ko'p, bosqichma-bosqich tayyorgarlik ko'ring!" |
+| 10-30 kun | Tayorgarlik, fokuslanish | "Muhim ishlarga e'tibor qiling, siz uddalaysiz!" |
+| 3-10 kun | Tinchlantirish, dalda berish | "Tinch bo'ling, siz yaxshi tayyorsiz. Hayajonlanmang!" |
+| 1-3 kun | Kuchli ishonch berish | "O'zingizga ishoning! Siz bunga tayyorsiz!" |
+
+Har bir xabar foydalanuvchi kiritgan to'liq sababga mos ravishda shaxsiylashtirilgan bo'ladi.
+
+## 📝 Foydalanish Misoli
+
+```
+/start
+
+Bot: Ismingizni yozing
+→ Diyor
+
+Bot: Muhim kun sanasini yozing (YYYY-MM-DD)
+→ 2026-04-25
+
+Bot: Bu kun nima uchun muhim ekanligini to'liqroq yozing
+→ To'y kunim, sevikli insonim bilan turmush quramiz, hayotimdagi eng muhim qadam
+
+✅ Hammasi tayyor! Har kuni motivatsion xabarlar olasiz.
+```
+
+### Kunlik xabarlar:
+- **89 kun qolganda**: "Vaqtingiz ko'p, reja tuzing..."
+- **15 kun qolganda**: "To'yingizga tayyorgarlik ko'ring, muhim ishlarga e'tibor qarating..."
+- **5 kun qolganda**: "Diyor, hayajonlanmang! Siz yaxshi tayyorsiz, hammasi joyida..."
+- **1 kun qolganda**: "Ertaga sizning kuningiz! O'zingizga ishoning, qo'rqmang!"
+
+Har bir xabar **sizning to'liq yozilgan sababingizga** mos va **qolgan kunlarga** qarab yoziladi! 🎊

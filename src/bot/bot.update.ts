@@ -139,8 +139,14 @@ export class BotUpdate {
         ctx.session.step = "awaiting_reason";
         await ctx.reply(
           `📅 Sana saqlandi: <b>${ctx.session.targetDate}</b>\n\n` +
-            `Endi bu kun <b>nima uchun muhim</b> ekanligini yozing:\n` +
-            `(Masalan: "Imtihon kuni", "Tug'ilgan kun", "Intervyu" va h.k.)`,
+            `Endi bu kun <b>nima uchun muhim</b> ekanligini <b>to'liqroq yozing</b>:\n\n` +
+            `Iltimos, to'liq ma'lumot bering, men sizga har kuni shu sababga mos motivatsion xabarlar yuboraman.\n\n` +
+            `Yaxshi misollar:\n` +
+            `✅ "Universitet yakuniy imtihoni, 4 yil o'qishimning natijasi"\n` +
+            `✅ "To'y kunim, sevikli insonim bilan turmush quramiz"\n` +
+            `✅ "Yangi ish joyiga intervyu, karyeramda katta qadam"\n\n` +
+            `Yomon misol:\n` +
+            `❌ "Imtihon" (juda qisqa)`,
           { parse_mode: "HTML" },
         );
         break;
@@ -155,6 +161,20 @@ export class BotUpdate {
           ctx.session.step = "awaiting_name";
           await ctx.reply(
             `Ma'lumotlar to'liq emas. Iltimos, /start buyrug'ini qayta yuboring.`,
+          );
+          return;
+        }
+
+        // Sabab juda qisqa bo'lsa, ogohlantirish
+        if (reason.length < 15) {
+          await ctx.reply(
+            `⚠️ Sabab juda qisqa!\n\n` +
+              `Iltimos, to'liqroq yozing. Men sizga har kuni shu sababga mos motivatsion xabarlar yuboraman.\n\n` +
+              `Yaxshi misollar:\n` +
+              `✅ "Universitet yakuniy imtihoni, 4 yil o'qishimning natijasi"\n` +
+              `✅ "To'y kunim, sevikli insonim bilan turmush quramiz"\n` +
+              `✅ "Yangi ish joyiga intervyu, karyeramda katta qadam"`,
+            { parse_mode: "HTML" },
           );
           return;
         }
@@ -176,7 +196,7 @@ export class BotUpdate {
             `📅 Muhim kun: <b>${targetDate}</b>\n` +
             `📝 Sabab: <b>${reason}</b>\n` +
             `⏳ Qolgan kunlar: <b>${daysLeft} kun</b>\n\n` +
-            `🔔 Men sizga har kuni <b>ertalab soat 8:00</b> da eslatma yuborib turaman!\n\n` +
+            `🔔 Men sizga har kuni <b>ertalab soat 8:00</b> da AI yordamida maxsus motivatsion xabarlar yuboraman!\n\n` +
             `💪 Omad tilayman!`,
           { parse_mode: "HTML" },
         );
