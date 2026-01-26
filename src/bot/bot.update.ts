@@ -21,10 +21,10 @@ export class BotUpdate {
     if (!ctx.chat) return;
 
     const chatId = ctx.chat.id;
-    const existingUser = this.databaseService.getUser(chatId);
+    const existingUser = await this.databaseService.getUser(chatId);
 
     if (existingUser) {
-      this.databaseService.deleteUser(chatId);
+      await this.databaseService.deleteUser(chatId);
       await ctx.reply(
         `🗑️ Ma'lumotlaringiz o'chirildi.\n\n` +
           `Yangi sana belgilash uchun /start buyrug'ini yuboring.`,
@@ -44,7 +44,7 @@ export class BotUpdate {
     if (!ctx.chat) return;
 
     const chatId = ctx.chat.id;
-    const existingUser = this.databaseService.getUser(chatId);
+    const existingUser = await this.databaseService.getUser(chatId);
 
     if (existingUser) {
       // User allaqachon ro'yxatdan o'tgan - ma'lumotlarini ko'rsatish
@@ -179,7 +179,7 @@ export class BotUpdate {
           return;
         }
 
-        this.databaseService.createUser(chatId, name, targetDate, reason);
+        await this.databaseService.createUser(chatId, name, targetDate, reason);
 
         // To'g'ri kun hisoblash - to'liq qolgan kunlar
         const [year, month, day] = targetDate.split("-").map(Number);

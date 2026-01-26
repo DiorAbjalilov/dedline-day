@@ -20,7 +20,7 @@ export class SchedulerService {
   async sendDailyReminders() {
     this.logger.log("Kunlik eslatmalar yuborilmoqda...");
 
-    const users = this.databaseService.getAllUsers();
+    const users = await this.databaseService.getAllUsers();
 
     for (const user of users) {
       try {
@@ -42,7 +42,7 @@ export class SchedulerService {
               `📝 ${user.reason}\n\n` +
               `Omad tilayman! 🍀`,
           );
-          this.databaseService.deleteUser(user.chat_id);
+          await this.databaseService.deleteUser(user.chat_id);
           continue;
         }
 
@@ -54,7 +54,7 @@ export class SchedulerService {
               `📝 ${user.reason}\n\n` +
               `💪 Hammasi yaxshi bo'ladi! Ishoning o'zingizga!`,
           );
-          this.databaseService.deleteUser(user.chat_id);
+          await this.databaseService.deleteUser(user.chat_id);
           continue;
         }
 

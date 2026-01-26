@@ -7,7 +7,11 @@
     "build": "nest build",
     "start": "nest start",
     "start:dev": "nest start --watch",
-    "start:prod": "node dist/main"
+    "start:prod": "node dist/main",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f postgres",
+    "dev": "npm run docker:up && npm run start:dev"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
@@ -16,17 +20,17 @@
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/schedule": "^4.0.0",
     "@nestjs/swagger": "^11.2.5",
-    "better-sqlite3": "^9.0.0",
     "nestjs-telegraf": "^2.7.0",
     "openai": "^4.0.0",
+    "pg": "^8.11.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
     "telegraf": "^4.15.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",
-    "@types/better-sqlite3": "^7.6.0",
     "@types/node": "^20.0.0",
+    "@types/pg": "^8.10.0",
     "typescript": "^5.0.0"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
